@@ -10,6 +10,7 @@ if [[ -z $1 ]]; then
 fi
 
 PASSWORD="$1"
+DAYS=36500
 
 mkdir -p testca
 cd testca
@@ -31,7 +32,7 @@ private_key = $dir/private/cakey.pem
 serial = $dir/serial
 
 default_crl_days = 7
-default_days = 365
+default_days = 36500
 default_md = sha256
 
 policy = testca_policy
@@ -76,7 +77,7 @@ extendedKeyUsage = 1.3.6.1.5.5.7.3.1
 
 EOF
 
-openssl req -x509 -config openssl.cnf -newkey rsa:2048 -days 365 \
+openssl req -x509 -config openssl.cnf -newkey rsa:2048 -days $DAYS \
     -out cacert.pem -outform PEM -subj /CN=MyTestCA/ -nodes
 openssl x509 -in cacert.pem -out cacert.cer -outform DER
 
